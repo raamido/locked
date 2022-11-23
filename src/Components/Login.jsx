@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
+  useEffect(() => {
+    document.title = "Locked — Login";
+  }, []);
+
   const handleFormSubmission = (e) => {
     e.preventDefault();
     console.log("ready to submit!");
