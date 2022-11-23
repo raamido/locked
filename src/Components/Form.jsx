@@ -1,5 +1,13 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 export default function Form() {
-  return <div>Form</div>;
+  return (
+    <div className="form">
+      <section className="left"></section>
+      <section className="right">
+        <Outlet />
+      </section>
+    </div>
+  );
 }
