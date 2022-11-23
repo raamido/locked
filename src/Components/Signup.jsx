@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
@@ -8,8 +8,25 @@ export default function Signup() {
 
   const handleFormSubmission = (e) => {
     e.preventDefault();
-    console.log("ready to submit!");
+    console.log(formCredentials);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormCredentials({
+      ...formCredentials,
+      [name]: value,
+    });
+  };
+
+  const credentials = {
+    fName: "",
+    lName: "",
+    email: "",
+    password: "",
+  };
+
+  const [formCredentials, setFormCredentials] = useState(credentials);
 
   return (
     <form onSubmit={handleFormSubmission}>
@@ -18,38 +35,46 @@ export default function Signup() {
         <div className="text-field">
           <input
             type="text"
-            name="First Name"
+            name="fName"
             placeholder="First Name"
             required
             pattern="[a-z]{2,15}"
+            value={formCredentials.fName}
+            onChange={handleChange}
           />
         </div>
         <div className="text-field">
           <input
             type="text"
-            name="Last Name"
+            name="lName"
             placeholder="Last Name"
             required
             pattern="[a-z]{2,15}"
+            value={formCredentials.lName}
+            onChange={handleChange}
           />
         </div>
       </div>
       <div className="text-field">
         <input
           type="email"
-          name="Email"
+          name="email"
           placeholder="Email"
           required
           pattern="^[a-z]{4,20}([0-9]{1,6})?@(gmail|yahoo|outlook).com$"
+          value={formCredentials.email}
+          onChange={handleChange}
         />
       </div>
       <div className="text-field">
         <input
           type="password"
-          name="Password"
+          name="password"
           placeholder="Password"
           required
           minLength="7"
+          value={formCredentials.password}
+          onChange={handleChange}
         />
       </div>
       <div align="right">
