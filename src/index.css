@@ -30,12 +30,22 @@ body,
 
 .left {
   width: 65%;
-  background: url(image.jpg);
+  background-image: url(image.jpg);
+  background-position: center 80%;
   background-size: cover;
+}
+
+.right {
+  width: 35%;
+  padding: 2rem;
 }
 
 @media screen and (max-width: 865px) {
   .left {
     display: none;
+  }
+
+  .right {
+    width: 100%;
   }
 }
