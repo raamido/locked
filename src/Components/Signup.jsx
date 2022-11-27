@@ -1,5 +1,7 @@
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../firebaseConfig";
 
 export default function Signup() {
   useEffect(() => {
@@ -8,7 +10,15 @@ export default function Signup() {
 
   const handleFormSubmission = (e) => {
     e.preventDefault();
-    console.log(formCredentials);
+    createUserWithEmailAndPassword(
+      auth,
+      formCredentials.email,
+      formCredentials.password
+    ).then(() => {
+      updateProfile(auth.currentUser, {
+        displayName: `${formCredentials.fName} ${formCredentials.lName}`,
+      }).catch((error) => console.log(error));
+    });
   };
 
   const handleChange = (e) => {

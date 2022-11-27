@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 export default function Login() {
   useEffect(() => {
@@ -8,22 +10,27 @@ export default function Login() {
 
   const handleFormSubmission = (e) => {
     e.preventDefault();
+    signInWithEmailAndPassword(
+      auth,
+      loginFormCredentials.email,
+      loginFormCredentials.password
+    );
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormCredentials({
-      ...formCredentials,
+      ...loginFormCredentials,
       [name]: value,
     });
   };
 
-  const credentials = {
+  const loginCredentials = {
     email: "",
     password: "",
   };
 
-  const [formCredentials, setFormCredentials] = useState(credentials);
+  const [loginFormCredentials, setFormCredentials] = useState(loginCredentials);
 
   return (
     <form onSubmit={handleFormSubmission}>
@@ -31,7 +38,7 @@ export default function Login() {
       <div className="text-field">
         <input
           type="email"
-          name="Email"
+          name="email"
           placeholder="Email"
           required
           pattern="^[a-z]{4,20}([0-9]{1,6})?@(gmail|yahoo|outlook).com$"
@@ -41,7 +48,7 @@ export default function Login() {
       <div className="text-field">
         <input
           type="password"
-          name="Password"
+          name="password"
           placeholder="Password"
           required
           minLength="7"
