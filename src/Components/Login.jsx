@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -8,8 +8,22 @@ export default function Login() {
 
   const handleFormSubmission = (e) => {
     e.preventDefault();
-    console.log("ready to submit!");
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormCredentials({
+      ...formCredentials,
+      [name]: value,
+    });
+  };
+
+  const credentials = {
+    email: "",
+    password: "",
+  };
+
+  const [formCredentials, setFormCredentials] = useState(credentials);
 
   return (
     <form onSubmit={handleFormSubmission}>
@@ -21,6 +35,7 @@ export default function Login() {
           placeholder="Email"
           required
           pattern="^[a-z]{4,20}([0-9]{1,6})?@(gmail|yahoo|outlook).com$"
+          onChange={handleChange}
         />
       </div>
       <div className="text-field">
@@ -30,6 +45,7 @@ export default function Login() {
           placeholder="Password"
           required
           minLength="7"
+          onChange={handleChange}
         />
       </div>
       <div align="right">
