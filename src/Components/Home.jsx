@@ -3,10 +3,16 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Contexts/AuthContext";
 import { auth } from "../firebaseConfig";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const navigate = useNavigate();
   const [user, setUser] = useAuth();
+
+  useEffect(() => {
+    toast.success(`authenticated as ${user.firstName} ${user.lastName}`);
+  }, []);
 
   const handleLogout = () => {
     signOut(auth).then(() => {
@@ -28,6 +34,18 @@ export default function Home() {
           Logout
         </button>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
     </div>
   );
 }
