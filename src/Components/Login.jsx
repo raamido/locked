@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { useAuth } from "../Contexts/AuthContext";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [user, setUser] = useAuth();
+
   useEffect(() => {
     document.title = "Locked — Login";
   }, []);
@@ -14,7 +18,16 @@ export default function Login() {
       auth,
       loginFormCredentials.email,
       loginFormCredentials.password
-    );
+    ).then((creds) => {
+      const [fname, lname] = creds.user.displayName.split(" ");
+      setUser({
+        firstName: fname,
+        lastName: lname,
+        email: creds.user.email,
+        loggedIn: true,
+      });
+      navigate("/home");
+    });
   };
 
   const handleChange = (e) => {

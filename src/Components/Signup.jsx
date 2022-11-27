@@ -1,9 +1,13 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Contexts/AuthContext";
 import { auth } from "../firebaseConfig";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const [user, setUser] = useAuth();
+
   useEffect(() => {
     document.title = "Locked — Sign UP";
   }, []);
@@ -17,7 +21,18 @@ export default function Signup() {
     ).then(() => {
       updateProfile(auth.currentUser, {
         displayName: `${formCredentials.fName} ${formCredentials.lName}`,
-      }).catch((error) => console.log(error));
+      })
+        .then((creds) => {
+          const [fname, lname] = creds.user.displayName.split(" ");
+          setUser({
+            firstName: fname,
+            lastName: lname,
+            email: creds.user.email,
+            loggedIn: true,
+          });
+          navigate("/home");
+        })
+        .catch((error) => console.log(error));
     });
   };
 
