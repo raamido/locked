@@ -85,6 +85,24 @@ input {
   gap: 8px;
 }
 
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85%;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 4rem 10rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.card h1 {
+  font-size: max(4rem, 75px);
+}
+
 @media screen and (max-width: 865px) {
   .left {
     display: none;
