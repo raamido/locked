@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
+import headerIcon from "/header_icon.svg";
+import coverImage from "/image.jpg";
 
 export default function Form() {
+  const leftSection = useRef();
+
+  useEffect(() => {
+    leftSection.current.style.backgroundImage = `url(${coverImage})`;
+  }, []);
+
   return (
     <div className="form">
-      <section className="left"></section>
+      <section className="left" ref={leftSection}></section>
       <section className="right">
         <header align="center">
-          <img src="header_icon.svg" alt="logo" width="120" />
+          <img src={headerIcon} alt="logo" width="120" />
         </header>
         <Outlet />
       </section>

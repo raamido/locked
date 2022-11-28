@@ -38,7 +38,6 @@ header {
 
 .left {
   width: 65%;
-  background-image: url(image.jpg);
   background-position: center 80%;
   background-size: cover;
 }
